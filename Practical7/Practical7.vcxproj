@@ -22,6 +22,9 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="ListNode.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test1.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
