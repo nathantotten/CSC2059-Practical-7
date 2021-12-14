@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// (1)
 void testTiming(int N)
 {
 	clock_t begin = clock();
@@ -21,6 +22,7 @@ void testTiming(int N)
 
 }
 
+// (2)
 double findAvg(int* pointerI, int N)
 {
 	clock_t begin = clock();
@@ -39,6 +41,7 @@ double findAvg(int* pointerI, int N)
 	return avg;
 }
 
+// (3)
 double find_countAverage(int* pi, int N)
 {
 	clock_t begin = clock();
@@ -60,6 +63,44 @@ double find_countAverage(int* pi, int N)
 	return count;
 }
 
+// (4)
+int findFurthest(int* pi, int N)
+{
+	clock_t begin = clock();
+
+	// op being timed
+	int* temp = new int[N];
+
+	// Find for each value pi[i] the closest other value
+	for (int i = 0; i < N; i++) {
+		int minDistance = MAXINT;
+		for (int j = 0; j < N; j++) {
+			Sleep(1);
+			if (j != i)
+				if (abs(pi[i] - pi[j]) < minDistance)
+					minDistance = abs(pi[i] - pi[j]);
+		}
+		temp[i] = minDistance;
+	}
+
+	// find the value with the furthest closest other value
+	int maxDistance = temp[0];
+	int furthest = pi[0];
+	for (int i = 0; i < N; i++) {
+		if (temp[i] > maxDistance) {
+			Sleep(1);
+			maxDistance = temp[i];
+			furthest = pi[i];
+		}
+	}
+	delete[] temp;
+	clock_t end = clock();
+
+	double elapsedTime = double(end - begin);
+	cout << "Time taken with N = " << N << " is " << elapsedTime << "ms = " << elapsedTime / 1000.0 << "s" << "\n";
+	return furthest;
+}
+
 int main()
 {
 	cout << "Data size N = ";
@@ -78,6 +119,11 @@ int main()
 
 	// (3) test find average and count above average ~ O(2N) so O(N)
 	//cout << "How many above average = " << find_countAverage(pi, N) << "\n";
+
+	// (4) test findFurthest ~ O(N^2) + O(N) so O(N^2) overall (Always take the complexity of the worst part of the funciton)
+	cout << findFurthest(pi, N) << endl;
+
+	delete[] pi;
 
 	//testTiming(N);
 	return 0;
